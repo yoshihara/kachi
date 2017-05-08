@@ -6,18 +6,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
+	"github.com/yoshihara/kachi/lib"
 	"io/ioutil"
 	"os"
 	"time"
 	// "github.com/spf13/viper"
 )
-
-// Task JSONにするときのタスクの持つ情報
-type Task struct {
-	Name  string
-	Start string
-	End   string
-}
 
 // RootCmd 引数無しで実行したコマンド
 var RootCmd = &cobra.Command{
@@ -44,7 +38,7 @@ var startCmd = &cobra.Command{
 	Long:  "start [task name]: start task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
-		var task = Task{Name: args[0], Start: time.Now().String()}
+		var task = lib.Task{Name: args[0], Start: time.Now().String()}
 		taskJSON, err := json.Marshal(&task)
 		if err != nil {
 			panic(err)
@@ -82,7 +76,7 @@ var stopCmd = &cobra.Command{
 			return errors.New("[ERROR] Couldn't stop task tracking. Please check if 'current.json' exists")
 		}
 
-		var task = Task{}
+		var task = lib.Task{}
 		err = json.Unmarshal(bytes, &task)
 		if err != nil {
 			panic(err)
