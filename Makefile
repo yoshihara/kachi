@@ -17,4 +17,8 @@ lint: setup
 	golint $$(glide novendor)
 	go fmt $$(glide novendor)
 
-.PHONY: setup bundle_install bundle_update lint
+build: lint
+	GOOS=darwin GOARCH=amd64 go build main.go # mac
+	GOOS=windows GOARCH=amd64 go build # windows
+
+.PHONY: setup bundle_install bundle_update lint build
