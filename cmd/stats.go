@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/yoshihara/kachi/lib"
 	"io/ioutil"
+	"math"
 	"os"
 	"strings"
 	"time"
@@ -40,7 +41,12 @@ var statsCmd = &cobra.Command{
 			endDateTime, _ := time.Parse(layout, task.End)
 
 			// TODO: もうちょっとフォーマット何とかする
-			fmt.Fprintf(os.Stdout, "%s %v\n", task.Name, endDateTime.Sub(startDateTime))
+			duration := float64(endDateTime.Sub(startDateTime).Seconds()) * scale
+			minutes := duration / 60.0
+			hours := minutes / 60.0
+
+			// 小数点丸め
+			fmt.Fprintf(os.Stdout, "%s %v\n", task.Name, math.Trunc(hours*100)/100.0)
 		}
 		return nil
 	},
