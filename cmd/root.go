@@ -3,8 +3,10 @@ package cmd
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
+	"io/ioutil"
 	"os"
 	"time"
 	// "github.com/spf13/viper"
@@ -31,9 +33,11 @@ var RootCmd = &cobra.Command{
 func init() {
 	cobra.OnInitialize()
 	RootCmd.AddCommand(startCmd)
+	RootCmd.AddCommand(stopCmd)
 	RootCmd.AddCommand(versionCmd)
 }
 
+// TODO: エラーチェックは予想不可能なものはpanic、それ以外はメッセージを出す
 var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "start task tracking",
@@ -58,6 +62,48 @@ var startCmd = &cobra.Command{
 		writer.Flush()
 
 		fmt.Println("Task: " + args[0] + " start")
+	},
+}
+
+var stopCmd = &cobra.Command{
+	Use:   "stop",
+	Short: "stop task tracking",
+	Long:  "stop: stop task tracking",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// TODO: 関数内部はlib/配下に作ってテストを書きたい
+
+		bytes, err := ioutil.ReadFile("current.json")
+		if err != nil {
+			return errors.New("[ERROR] Couldn't stop task tracking. Please check if 'current.json' exists.")
+		}
+
+		var task = Task{}
+		err = json.Unmarshal(bytes, &task)
+		if err != nil {
+			panic(err)
+		}
+
+		task.End = time.Now().String()
+		taskJSON, err := json.Marshal(&task)
+		if err != nil {
+			panic(err)
+		}
+
+		f, err := os.OpenFile("log.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+		if err != nil {
+			panic(err)
+		}
+
+		defer f.Close()
+
+		_, err = f.WriteString(string(taskJSON) + "\n")
+		if err != nil {
+			panic(err)
+		}
+
+		os.Remove("current.json")
+		fmt.Println("Task: " + task.Name + " stop")
+		return nil
 	},
 }
 
