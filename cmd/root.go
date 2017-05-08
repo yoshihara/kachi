@@ -52,12 +52,12 @@ var startCmd = &cobra.Command{
 
 		_, err = os.Stat("current.json")
 		if !os.IsNotExist(err) {
-			return errors.New("[ERROR] 'current.json' exist already. Please stop before start.")
+			return errors.New("[ERROR] 'current.json' exist already. Please stop before start")
 		}
 
 		f, error := os.Create("current.json")
 		if error != nil {
-			return errors.New("[ERROR] Couldn't create 'current.json' file.")
+			return errors.New("[ERROR] Couldn't create 'current.json' file")
 		}
 		defer f.Close()
 
@@ -79,7 +79,7 @@ var stopCmd = &cobra.Command{
 
 		bytes, err := ioutil.ReadFile("current.json")
 		if err != nil {
-			return errors.New("[ERROR] Couldn't stop task tracking. Please check if 'current.json' exists.")
+			return errors.New("[ERROR] Couldn't stop task tracking. Please check if 'current.json' exists")
 		}
 
 		var task = Task{}
