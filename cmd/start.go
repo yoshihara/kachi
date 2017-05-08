@@ -41,7 +41,7 @@ var startCmd = &cobra.Command{
 		writer.WriteString(string(taskJSON))
 		writer.Flush()
 
-		fmt.Println("Task: " + args[0] + " start")
+		fmt.Fprintf(os.Stdout, "Task: "+args[0]+" start\n")
 		return nil
 	},
 }

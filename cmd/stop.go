@@ -49,7 +49,7 @@ var stopCmd = &cobra.Command{
 		}
 
 		os.Remove("current.json")
-		fmt.Println("Task: " + task.Name + " stop")
+		fmt.Fprintf(os.Stdout, "Task: "+task.Name+" stop\n")
 		return nil
 	},
 }

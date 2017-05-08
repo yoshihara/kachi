@@ -20,6 +20,7 @@ func init() {
 	cobra.OnInitialize()
 	RootCmd.AddCommand(startCmd)
 	RootCmd.AddCommand(stopCmd)
+	RootCmd.AddCommand(statsCmd)
 	RootCmd.AddCommand(versionCmd)
 }
 
