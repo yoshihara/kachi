@@ -18,7 +18,9 @@ var startCmd = &cobra.Command{
 	Long:  "start [task name]: start task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
-		var task = lib.Task{Name: args[0], Start: time.Now().String()}
+		layout := "Mon Jan 2 15:04:05 MST 2006"
+
+		var task = lib.Task{Name: args[0], Start: time.Now().Format(layout)}
 		taskJSON, err := json.Marshal(&task)
 		if err != nil {
 			panic(err)

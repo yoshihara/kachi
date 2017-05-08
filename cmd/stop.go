@@ -17,6 +17,7 @@ var stopCmd = &cobra.Command{
 	Long:  "stop: stop task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
+		layout := "Mon Jan 2 15:04:05 MST 2006"
 
 		bytes, err := ioutil.ReadFile("current.json")
 		if err != nil {
@@ -29,7 +30,7 @@ var stopCmd = &cobra.Command{
 			panic(err)
 		}
 
-		task.End = time.Now().String()
+		task.End = time.Now().Format(layout)
 		taskJSON, err := json.Marshal(&task)
 		if err != nil {
 			panic(err)
