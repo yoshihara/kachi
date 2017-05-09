@@ -2,11 +2,9 @@ package cmd
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/yoshihara/kachi/lib"
-	"io/ioutil"
 	"os"
 	"time"
 )
@@ -19,19 +17,13 @@ var stopCmd = &cobra.Command{
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
 		layout := "Mon Jan 2 15:04:05 MST 2006"
 
-		bytes, err := ioutil.ReadFile("current.json")
+		task, err := lib.ReadCurrentTask()
 		if err != nil {
-			return errors.New("[ERROR] Couldn't stop task tracking. Please check if 'current.json' exists")
-		}
-
-		var task = lib.Task{}
-		err = json.Unmarshal(bytes, &task)
-		if err != nil {
-			panic(err)
+			return err
 		}
 
 		task.End = time.Now().Format(layout)
-		taskJSON, err := json.Marshal(&task)
+		taskJSON, err := json.Marshal(task)
 		if err != nil {
 			panic(err)
 		}
