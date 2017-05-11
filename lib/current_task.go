@@ -1,12 +1,41 @@
 package lib
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"os"
 	"time"
 )
+
+// StartTask create and start current Task
+func StartTask(taskName string) (*Task, error) {
+	layout := "Mon Jan 2 15:04:05 MST 2006"
+
+	var task = Task{Name: taskName, Start: time.Now().Format(layout)}
+	taskJSON, err := json.Marshal(&task)
+	if err != nil {
+		return nil, errors.New("[ERROR] Couldn't create 'current.json'. Please check your task name")
+	}
+
+	_, err = os.Stat("current.json")
+	if !os.IsNotExist(err) {
+		return nil, errors.New("[ERROR] 'current.json' exist already. Please stop before start")
+	}
+
+	f, error := os.Create("current.json")
+	if error != nil {
+		return nil, errors.New("[ERROR] Couldn't create 'current.json' file")
+	}
+	defer f.Close()
+
+	writer := bufio.NewWriter(f)
+	writer.WriteString(string(taskJSON))
+	writer.Flush()
+
+	return &task, nil
+}
 
 // ReadCurrentTask return the current Task
 func ReadCurrentTask() (*Task, error) {
