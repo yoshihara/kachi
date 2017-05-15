@@ -6,3 +6,6 @@ type Task struct {
 	Start string
 	End   string
 }
+
+// DateTimeLayout using datetime format
+const DateTimeLayout string = "Mon Jan 2 15:04:05 MST 2006"

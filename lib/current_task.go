@@ -11,9 +11,7 @@ import (
 
 // StartTask create and start current Task
 func StartTask(taskName string) (*Task, error) {
-	layout := "Mon Jan 2 15:04:05 MST 2006"
-
-	var task = Task{Name: taskName, Start: time.Now().Format(layout)}
+	var task = Task{Name: taskName, Start: time.Now().Format(DateTimeLayout)}
 	taskJSON, err := json.Marshal(&task)
 	if err != nil {
 		return nil, errors.New("[ERROR] Couldn't create 'current.json'. Please check your task name")
@@ -56,9 +54,7 @@ func ReadCurrentTask() (*Task, error) {
 
 // CompleteTask add the current Task to log and remove
 func CompleteTask(task *Task) (*Task, error) {
-	layout := "Mon Jan 2 15:04:05 MST 2006"
-
-	task.End = time.Now().Format(layout)
+	task.End = time.Now().Format(DateTimeLayout)
 	taskJSON, err := json.Marshal(task)
 	if err != nil {
 		return nil, err
