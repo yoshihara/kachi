@@ -22,6 +22,8 @@ func init() {
 	cobra.OnInitialize()
 	RootCmd.AddCommand(startCmd)
 	RootCmd.AddCommand(stopCmd)
+	RootCmd.AddCommand(currentCmd)
+
 	statsCmd.Flags().Float64VarP(&scale, "scale", "s", 1.0, "scale for stats")
 	RootCmd.AddCommand(statsCmd)
 	RootCmd.AddCommand(refreshCmd)
