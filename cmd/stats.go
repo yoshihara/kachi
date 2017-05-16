@@ -21,8 +21,8 @@ var statsCmd = &cobra.Command{
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
 		layout := "Mon Jan 2 15:04:05 MST 2006"
 
-		bytes, err := ioutil.ReadFile("log.json")
-		if err != nil {
+		bytes, error := ioutil.ReadFile("log.json")
+		if error != nil {
 			return errors.New("[ERROR] Couldn't read 'log.json'. Please check if 'log.json' exists")
 		}
 
@@ -33,8 +33,8 @@ var statsCmd = &cobra.Command{
 			if len(taskJSON) < 1 {
 				continue
 			}
-			err = json.Unmarshal([]byte(taskJSON), &task)
-			if err != nil {
+			error = json.Unmarshal([]byte(taskJSON), &task)
+			if error != nil {
 				return errors.New("[ERROR] Couldn't parse task log as JSON:" + taskJSON)
 			}
 			startDateTime, _ := time.Parse(layout, task.Start)

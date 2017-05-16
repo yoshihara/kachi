@@ -12,9 +12,9 @@ var stopCmd = &cobra.Command{
 	Short: "stop task tracking",
 	Long:  "stop: stop task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		task, err := lib.ReadCurrentTask()
-		if err != nil {
-			return err
+		task, error := lib.ReadCurrentTask()
+		if error != nil {
+			return error
 		}
 
 		lib.CompleteTask(task)
