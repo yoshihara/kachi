@@ -24,6 +24,7 @@ func init() {
 	RootCmd.AddCommand(stopCmd)
 	statsCmd.Flags().Float64VarP(&scale, "scale", "s", 1.0, "scale for stats")
 	RootCmd.AddCommand(statsCmd)
+	RootCmd.AddCommand(refreshCmd)
 	RootCmd.AddCommand(versionCmd)
 }
 
