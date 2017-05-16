@@ -7,7 +7,6 @@ import (
 	"os"
 )
 
-// TODO: エラーチェックは予想不可能なものはpanic、それ以外はメッセージを出す
 var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start task tracking",
