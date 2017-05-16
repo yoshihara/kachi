@@ -10,8 +10,8 @@ import (
 // TODO: エラーチェックは予想不可能なものはpanic、それ以外はメッセージを出す
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "start task tracking",
-	Long:  "start [task name]: start task tracking",
+	Short: "Start task tracking",
+	Long:  "start [task name]: Start task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		task, error := lib.StartTask(args[0])
 

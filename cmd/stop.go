@@ -9,8 +9,8 @@ import (
 
 var stopCmd = &cobra.Command{
 	Use:   "stop",
-	Short: "stop task tracking",
-	Long:  "stop: stop task tracking",
+	Short: "Stop task tracking",
+	Long:  "stop: Stop task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		task, error := lib.ReadCurrentTask()
 		if error != nil {

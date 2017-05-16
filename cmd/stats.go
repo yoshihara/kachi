@@ -15,8 +15,8 @@ import (
 
 var statsCmd = &cobra.Command{
 	Use:   "stats",
-	Short: "show tracked tasks",
-	Long:  "stats: show tracked tasks",
+	Short: "Show tracked tasks",
+	Long:  "stats: Show tracked tasks",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// TODO: 関数内部はlib/配下に作ってテストを書きたい
 		layout := "Mon Jan 2 15:04:05 MST 2006"
