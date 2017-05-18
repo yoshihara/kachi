@@ -12,7 +12,7 @@ import (
 
 // ReadCompletedTasks return completed tasks
 func ReadCompletedTasks() ([]byte, error) {
-	bytes, error := ioutil.ReadFile("log.json")
+	bytes, error := ioutil.ReadFile(JSONPath("log.json"))
 	if error != nil {
 		return nil, errors.New("[ERROR] Couldn't read 'log.json'. Please check if 'log.json' exists")
 	}
@@ -27,7 +27,7 @@ func RefreshTasks() error {
 		return error
 	}
 
-	f, error := os.OpenFile("archive.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	f, error := os.OpenFile(JSONPath("archive.json"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if error != nil {
 		return error
 	}
@@ -39,7 +39,7 @@ func RefreshTasks() error {
 		return error
 	}
 
-	lf, error := os.OpenFile("log.json", os.O_TRUNC, 0666)
+	lf, error := os.OpenFile(JSONPath("log.json"), os.O_TRUNC, 0666)
 	if error != nil {
 		return error
 	}
