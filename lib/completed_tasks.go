@@ -6,11 +6,21 @@ import (
 	"os"
 )
 
-// RefreshTasks move completed tasks to archive.json
-func RefreshTasks() error {
+// ReadCompletedTasks return completed tasks
+func ReadCompletedTasks() ([]byte, error) {
 	bytes, error := ioutil.ReadFile("log.json")
 	if error != nil {
-		return errors.New("[ERROR] Couldn't read 'log.json'. Please check if 'log.json' exists")
+		return nil, errors.New("[ERROR] Couldn't read 'log.json'. Please check if 'log.json' exists")
+	}
+
+	return bytes, nil
+}
+
+// RefreshTasks move completed tasks to archive.json
+func RefreshTasks() error {
+	bytes, error := ReadCompletedTasks()
+	if error != nil {
+		return error
 	}
 
 	f, error := os.OpenFile("archive.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
