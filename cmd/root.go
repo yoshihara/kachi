@@ -20,6 +20,7 @@ var scale float64
 
 func init() {
 	cobra.OnInitialize()
+	RootCmd.AddCommand(initCmd)
 	RootCmd.AddCommand(startCmd)
 	RootCmd.AddCommand(stopCmd)
 	RootCmd.AddCommand(currentCmd)
