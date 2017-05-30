@@ -27,7 +27,7 @@ func RefreshTasks() error {
 		return error
 	}
 
-	f, error := os.OpenFile(JSONPath("archive.json"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	f, error := os.OpenFile(ArchivePath(), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if error != nil {
 		return error
 	}

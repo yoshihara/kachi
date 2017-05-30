@@ -38,6 +38,11 @@ func LogPath() string {
 	return JSONPath("log.json")
 }
 
+// ArchivePath return path for the tasks archive file
+func ArchivePath() string {
+	return JSONPath("archive.json")
+}
+
 // JSONPath return filepath for each JSON file
 func JSONPath(filename string) string {
 	return filepath.Join(JSONDir(), filename)
