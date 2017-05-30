@@ -12,6 +12,10 @@ var refreshCmd = &cobra.Command{
 	Short: "Move completed tasks to archive",
 	Long:  "refresh: Move completed tasks to archive",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if !lib.IsJSONDirExists() {
+			return lib.ErrorNotFoundJSONDir()
+		}
+
 		error := lib.RefreshTasks()
 
 		if error != nil {

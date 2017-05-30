@@ -11,6 +11,10 @@ var statsCmd = &cobra.Command{
 	Short: "Show tracked tasks",
 	Long:  "stats: Show tracked tasks",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if !lib.IsJSONDirExists() {
+			return lib.ErrorNotFoundJSONDir()
+		}
+
 		tasksJSON, error := lib.ReadCompletedTasks()
 		if error != nil {
 			return error

@@ -12,6 +12,10 @@ var currentCmd = &cobra.Command{
 	Short: "Show current task",
 	Long:  "current: Show current task",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if !lib.IsJSONDirExists() {
+			return lib.ErrorNotFoundJSONDir()
+		}
+
 		task, error := lib.ReadCurrentTask()
 		if error != nil {
 			return error

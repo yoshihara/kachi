@@ -12,6 +12,10 @@ var startCmd = &cobra.Command{
 	Short: "Start task tracking",
 	Long:  "start [task name]: Start task tracking",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if !lib.IsJSONDirExists() {
+			return lib.ErrorNotFoundJSONDir()
+		}
+
 		task, error := lib.StartTask(args[0])
 
 		if error != nil {
