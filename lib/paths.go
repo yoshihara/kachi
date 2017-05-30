@@ -33,6 +33,11 @@ func CurrentTaskPath() string {
 	return JSONPath("current.json")
 }
 
+// LogPath return path for the tasks log file
+func LogPath() string {
+	return JSONPath("log.json")
+}
+
 // JSONPath return filepath for each JSON file
 func JSONPath(filename string) string {
 	return filepath.Join(JSONDir(), filename)

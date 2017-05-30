@@ -60,7 +60,7 @@ func CompleteTask(task *Task) (*Task, error) {
 		return nil, error
 	}
 
-	f, error := os.OpenFile(JSONPath("log.json"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	f, error := os.OpenFile(LogPath(), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if error != nil {
 		return nil, error
 	}
