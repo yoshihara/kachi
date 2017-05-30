@@ -28,6 +28,11 @@ func JSONDir() string {
 	return filepath.Join(dir, ".kachi")
 }
 
+// CurrentTaskPath return path for the current task file
+func CurrentTaskPath() string {
+	return JSONPath("current.json")
+}
+
 // JSONPath return filepath for each JSON file
 func JSONPath(filename string) string {
 	return filepath.Join(JSONDir(), filename)

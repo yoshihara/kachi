@@ -22,7 +22,7 @@ func StartTask(taskName string) (*Task, error) {
 		return nil, errors.New("[ERROR] 'current.json' exist already. Please stop before start")
 	}
 
-	f, error := os.Create(JSONPath("current.json"))
+	f, error := os.Create(CurrentTaskPath())
 	if error != nil {
 		return nil, errors.New("[ERROR] Couldn't create 'current.json' file")
 	}
@@ -37,7 +37,7 @@ func StartTask(taskName string) (*Task, error) {
 
 // ReadCurrentTask return the current Task
 func ReadCurrentTask() (*Task, error) {
-	bytes, error := ioutil.ReadFile(JSONPath("current.json"))
+	bytes, error := ioutil.ReadFile(CurrentTaskPath())
 	if error != nil {
 		return nil, errors.New("[ERROR] Couldn't read current task. Please check if 'current.json' exists")
 	}
@@ -72,7 +72,7 @@ func CompleteTask(task *Task) (*Task, error) {
 		return nil, error
 	}
 
-	error = os.Remove(JSONPath("current.json"))
+	error = os.Remove(CurrentTaskPath())
 	if error != nil {
 		return nil, error
 	}
