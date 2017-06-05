@@ -1,6 +1,6 @@
 check_deps:
 	$(eval GLIDE:=$(shell which glide))
-	if [ -n "$(GLIDE)" -a -x "$(GLIDE)" ]; then echo "check_deps: OK"; else echo "Please install glide c.f. TODO"; fi;
+	if [ -n "$(GLIDE)" -a -x "$(GLIDE)" ]; then echo "check_deps: OK"; else echo "Please install glide c.f. https://github.com/Masterminds/glide"; fi;
 
 setup: check_deps
 	go get honnef.co/go/tools/cmd/staticcheck
